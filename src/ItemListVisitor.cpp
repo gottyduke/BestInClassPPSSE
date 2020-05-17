@@ -10,6 +10,7 @@ ItemListVisitor::ItemListVisitor(RE::ItemList* a_itemList) :
 void ItemListVisitor::Visit()
 {
 	for (auto& item : _list->items) {
+		item->obj.SetMember("bestInClass", true);
 	}
 }
 

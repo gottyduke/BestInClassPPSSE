@@ -1,4 +1,3 @@
-#include "Events.h"
 #include "Hooks.h"
 #include "Settings.h"
 #include "version.h"
@@ -13,7 +12,6 @@ namespace
 		switch (a_msg->type) {
 		case SKSE::MessagingInterface::kDataLoaded:
 			{
-				Events::RegisterEvent();
 				break;
 			}
 		default:;
@@ -30,6 +28,7 @@ extern "C"
 		SKSE::Logger::SetPrintLevel(SKSE::Logger::Level::kDebugMessage);
 		SKSE::Logger::SetFlushLevel(SKSE::Logger::Level::kDebugMessage);
 		SKSE::Logger::UseLogStamp(true);
+		SKSE::Logger::TrackTrampolineStats(true);
 
 		_MESSAGE("BestInClassPPSSE v%s", BICS_VERSION_VERSTRING);
 
@@ -59,11 +58,11 @@ extern "C"
 		if (!Init(a_skse)) {
 			return false;
 		}
-
+		
 		if (Settings::LoadSettings()) {
-			_MESSAGE("Settings loladed successully");
+			_MESSAGE("Settings loaded successully");
 		} else {
-			_FATALERROR("Failed to load settings");
+			_FATALERROR("Failed to load settings\n");
 			return false;
 		}
 		
@@ -75,7 +74,17 @@ extern "C"
 			return false;
 		}
 
-		Hooks::TryInstallHooks();
+		if (!SKSE::AllocTrampoline(1 << 5)) {
+			_FATALERROR("Failed to allocate trampoline");
+			return false;
+		}
+		
+		if (Hooks::InstallHooks()) {
+			_MESSAGE("Hooks installed successfully");
+		} else {
+			_FATALERROR("Failed to install hooks!\n");
+			return false;
+		}
 		
 		return true;
 	}

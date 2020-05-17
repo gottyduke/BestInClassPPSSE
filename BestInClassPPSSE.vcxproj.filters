@@ -12,7 +12,6 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Settings.cpp" />
-    <ClCompile Include="src\Events.cpp" />
     <ClCompile Include="src\ItemListVisitor.cpp" />
     <ClCompile Include="src\Forms.cpp" />
     <ClCompile Include="src\Hooks.cpp" />
@@ -20,7 +19,6 @@
   <ItemGroup>
     <ClInclude Include="include\version.h" />
     <ClInclude Include="include\Settings.h" />
-    <ClInclude Include="include\Events.h" />
     <ClInclude Include="include\ItemListVisitor.h" />
     <ClInclude Include="include\Forms.h" />
     <ClInclude Include="include\Hooks.h" />
