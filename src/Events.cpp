@@ -2,32 +2,31 @@
 
 #include "Hooks.h"
 
-#include "ItemListVisitor.h"
 #include "SKSE/RegistrationSet.h"
+
 
 namespace Events
 {
 	MenuOpenHandler::EventResult MenuOpenHandler::ProcessEvent(const RE::MenuOpenCloseEvent* a_event, [[maybe_unused]] RE::BSTEventSource<RE::MenuOpenCloseEvent>* a_eventSource)
 	{
-		if (!a_event || !a_event->opening) {
+		if (!a_event) {
 			return EventResult::kContinue;
 		}
-
-		CurrentMenu = a_event->menuName;
 		
-		auto* const ui = RE::UI::GetSingleton();
 		auto* const intfcStr = RE::InterfaceStrings::GetSingleton();
 		
-		const auto* task = SKSE::GetTaskInterface();
+		if (a_event->menuName == intfcStr->barterMenu ||
+			a_event->menuName == intfcStr->containerMenu ||
+			a_event->menuName == intfcStr->inventoryMenu) {
+			// skip first execution to avoid re-iterating the list
+			if (a_event->opening) {
+				CurrentMenu = a_event->menuName;
 
-		if (CurrentMenu != intfcStr->barterMenu || 
-			CurrentMenu != intfcStr->containerMenu ||
-			CurrentMenu != intfcStr->inventoryMenu) {
-			return EventResult::kContinue;
+				Hooks::Hook_SetMemberIfBestInClass();
+			} else {
+				CurrentMenu = nullptr;
+			}
 		}
-
-		_MESSAGE("Event");
-		Hooks::Hook_SetMemberIfBestInClass(nullptr);
 		
 		return EventResult::kContinue;
 	}

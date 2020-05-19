@@ -1,6 +1,5 @@
 #include "Hooks.h"
 #include "Events.h"
-#include "Settings.h"
 #include "version.h"
 
 #include "SKSE/API.h"
@@ -35,6 +34,7 @@ extern "C"
 		SKSE::Logger::SetPrintLevel(SKSE::Logger::Level::kDebugMessage);
 		SKSE::Logger::SetFlushLevel(SKSE::Logger::Level::kDebugMessage);
 		SKSE::Logger::UseLogStamp(true);
+		SKSE::Logger::TrackTrampolineStats(true);
 
 		_MESSAGE("BestInClassPPSSE v%s", BICS_VERSION_VERSTRING);
 
@@ -62,13 +62,6 @@ extern "C"
 		_MESSAGE("BestInClassPPSSE loaded");
 
 		if (!Init(a_skse)) {
-			return false;
-		}
-		
-		if (Settings::LoadSettings()) {
-			_MESSAGE("Settings loaded successfully");
-		} else {
-			_FATALERROR("Failed to load settings\n");
 			return false;
 		}
 

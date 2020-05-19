@@ -1,5 +1,7 @@
 {
-  "compareAmmoBy": "damage",
-  "compareArmorBy": "rating",
-  "compareWeaponBy": "damage"
+  "compareLightArmorBy": "rating",
+  "compareHeavyArmorBy": "rating",
+  "compareClothingBy": "price",
+  "compareWeaponBy": "damage",
+  "compareAmmoBy": "damage"
 }

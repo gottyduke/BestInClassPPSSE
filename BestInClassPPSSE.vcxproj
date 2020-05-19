@@ -34,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Events.cpp" />
-    <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\Hooks.cpp" />
     <ClCompile Include="src\ItemListVisitor.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -44,7 +43,6 @@
     <ClInclude Include="include\Hooks.h" />
     <ClInclude Include="include\ItemListVisitor.h" />
     <ClInclude Include="include\version.h" />
-    <ClInclude Include="include\Settings.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

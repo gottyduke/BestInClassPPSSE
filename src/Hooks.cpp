@@ -1,5 +1,8 @@
 #include "Hooks.h"
 
+#include "Events.h"
+#include "ItemListVisitor.h"
+
 #include "DKUtil/Hook.h"
 
 
@@ -18,12 +21,35 @@ namespace
 	constexpr std::uintptr_t INVENTORY_OFFSET = 0x112;
 }
 
-
+	
 namespace Hooks
 {
+	// triggered when menu is opened and when any item is updated
 	void __fastcall Hook_SetMemberIfBestInClass(void* a_this)
 	{
-		_MESSAGE("Hook");
+		using Event = Events::MenuOpenHandler;
+		
+		// skip first execution to avoid re-iterating the list
+		if (Event::CurrentMenu.empty()) {
+			return;
+		}
+
+		auto* ui = RE::UI::GetSingleton();
+		auto* intfcStr = RE::InterfaceStrings::GetSingleton();
+		const auto* task = SKSE::GetTaskInterface();
+		
+		if (Event::CurrentMenu == intfcStr->barterMenu) {
+			const auto menu = static_cast<RE::BarterMenu*>(ui->GetMenu(Event::CurrentMenu).get());
+			task->AddTask(new ItemListVisitor(menu->itemList->items));
+		}
+		if (Event::CurrentMenu == intfcStr->containerMenu) {
+			const auto menu = static_cast<RE::ContainerMenu*>(ui->GetMenu(Event::CurrentMenu).get());
+			task->AddTask(new ItemListVisitor(menu->itemList->items));
+		}
+		if (Event::CurrentMenu == intfcStr->inventoryMenu) {
+			const auto menu = static_cast<RE::InventoryMenu*>(ui->GetMenu(Event::CurrentMenu).get());
+			task->AddTask(new ItemListVisitor(menu->itemList->items));
+		}
 	}
 
 
@@ -33,16 +59,19 @@ namespace Hooks
 		
 		// completely substitute call skyrimse.7FF7C688C620 <- SetMemberIfBestInClass( rcx( void* : this ) ) : rax( void )
 		success &= DKUtil::Hook::BranchToFunction
-		<BARTER_ID, BARTER_OFFSET, BARTER_OFFSET + SKIP_SIZE>
-		(reinterpret_cast<std::uintptr_t>(&Hook_SetMemberIfBestInClass));
+			<BARTER_ID, BARTER_OFFSET, BARTER_OFFSET + SKIP_SIZE>
+			(reinterpret_cast<std::uintptr_t>(&Hook_SetMemberIfBestInClass));
+		_DMESSAGE("Patched BarterMenu");
 		
 		success &= DKUtil::Hook::BranchToFunction
-		<CONTAINER_ID, CONTAINER_OFFSET, CONTAINER_OFFSET + SKIP_SIZE>
-		(reinterpret_cast<std::uintptr_t>(&Hook_SetMemberIfBestInClass));
+			<CONTAINER_ID, CONTAINER_OFFSET, CONTAINER_OFFSET + SKIP_SIZE>
+			(reinterpret_cast<std::uintptr_t>(&Hook_SetMemberIfBestInClass));
+		_DMESSAGE("Patched ContainerMenu");
 		
 		success &= DKUtil::Hook::BranchToFunction
-		<INVENTORY_ID, INVENTORY_OFFSET, INVENTORY_OFFSET + SKIP_SIZE>
-		(reinterpret_cast<std::uintptr_t>(&Hook_SetMemberIfBestInClass));
+			<INVENTORY_ID, INVENTORY_OFFSET, INVENTORY_OFFSET + SKIP_SIZE>
+			(reinterpret_cast<std::uintptr_t>(&Hook_SetMemberIfBestInClass));
+		_DMESSAGE("Patched InventoryMenu");
 
 		return success;
 	}
