@@ -102,7 +102,7 @@ void ItemListVisitor::CompareArmor(RE::ItemList::Item* a_item)
 	if (typeMask >= 0 && typeMask < 14) {
 		auto& [item, value] = _bestStore.Armor[typeMask];
 
-		// compare armor by rating, compare clothing by amount of enchantments
+		// compare armor by rating, compare clothing by amount of enchantments / maybe gold value?
 		const auto rhsCompare = typeMask < 10 ? armor->GetArmorRating() : armor->amountofEnchantment;
 		
 		if (value < rhsCompare) {
@@ -120,9 +120,12 @@ void ItemListVisitor::CompareWeapon(RE::ItemList::Item* a_item)
 
 	auto& [item, value] = _bestStore.Weapon[typeMask];
 
-	if (value < weapon->GetAttackDamage()) {
+	// compare weapon by damage, comapre staff by gold value
+	const auto rhsCompare = typeMask == 8 ? weapon->GetGoldValue() : weapon->GetAttackDamage();
+	
+	if (value < rhsCompare) {
 		item = a_item;
-		value = weapon->GetAttackDamage();
+		value = rhsCompare;
 	}
 }
 

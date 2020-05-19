@@ -29,7 +29,7 @@ private:
 		};
 		
 		std::pair<RE::ItemList::Item*, float> Armor[14];
-		std::pair<RE::ItemList::Item*, unsigned short> Weapon[9];
+		std::pair<RE::ItemList::Item*, SInt32> Weapon[9];
 		std::pair<RE::ItemList::Item*, float> Ammo[2];
 	};
 	
