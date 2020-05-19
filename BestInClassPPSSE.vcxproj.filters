@@ -4,7 +4,6 @@
     <None Include="!QuickUpdate.ps1" />
     <None Include="LICENSE" />
     <None Include="exports.def" />
-    <None Include="BestInClassPPSSE.json" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="version.rc" />
