@@ -80,13 +80,13 @@ void ItemListVisitor::CompareArmor(RE::ItemList::Item* a_item)
 			typeMask = type + 2;
 			break;
 		}
-	case Slot::kShield:
+	case Slot::kHelmet1:
+	case Slot::kHelmet2:
 		{
 			typeMask = type + 3;
 			break;
 		}
-	case Slot::kHelmet1:
-	case Slot::kHelmet2:
+	case Slot::kShield:
 		{
 			typeMask = type + 4;
 			break;
