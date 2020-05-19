@@ -10,17 +10,45 @@
     <ResourceCompile Include="version.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Settings.cpp" />
-    <ClCompile Include="src\ItemListVisitor.cpp" />
-    <ClCompile Include="src\Forms.cpp" />
-    <ClCompile Include="src\Hooks.cpp" />
+    <ClCompile Include="src\Hooks.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ItemListVisitor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Settings.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\version.h" />
-    <ClInclude Include="include\Settings.h" />
-    <ClInclude Include="include\ItemListVisitor.h" />
-    <ClInclude Include="include\Forms.h" />
-    <ClInclude Include="include\Hooks.h" />
+    <ClInclude Include="include\Hooks.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ItemListVisitor.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\version.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Settings.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{9810cc76-e808-4a6a-afb1-7d6750a2e38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{00f11ca3-0fc7-4ab2-9e2f-682ef3e02844}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

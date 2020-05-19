@@ -1,10 +1,9 @@
 #pragma once
-#include "RE/ItemList.h"
 
 
 namespace Hooks
 {
-	void Hook_SetIfBestInClass(RE::ItemList* a_list);
+	void Hook_SetMemberIfBestInClass(void* a_this);
 	
 	bool InstallHooks();
 }

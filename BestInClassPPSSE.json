@@ -1,3 +1,5 @@
 {
-
+  "compareAmmoBy": "damage",
+  "compareArmorBy": "rating",
+  "compareWeaponBy": "damage"
 }

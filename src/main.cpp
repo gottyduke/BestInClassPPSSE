@@ -1,4 +1,5 @@
 #include "Hooks.h"
+#include "Events.h"
 #include "Settings.h"
 #include "version.h"
 
@@ -7,11 +8,17 @@
 
 namespace
 {
+
 	void MessageHandler(SKSE::MessagingInterface::Message* a_msg)
 	{
 		switch (a_msg->type) {
 		case SKSE::MessagingInterface::kDataLoaded:
 			{
+				auto* ui = RE::UI::GetSingleton();
+				ui->AddEventSink(Events::MenuOpenHandler::GetSingleton());
+
+				_MESSAGE("MenuOpenHandler registered");
+
 				break;
 			}
 		default:;
@@ -28,7 +35,6 @@ extern "C"
 		SKSE::Logger::SetPrintLevel(SKSE::Logger::Level::kDebugMessage);
 		SKSE::Logger::SetFlushLevel(SKSE::Logger::Level::kDebugMessage);
 		SKSE::Logger::UseLogStamp(true);
-		SKSE::Logger::TrackTrampolineStats(true);
 
 		_MESSAGE("BestInClassPPSSE v%s", BICS_VERSION_VERSTRING);
 
@@ -43,7 +49,7 @@ extern "C"
 
 		const auto ver = a_skse->RuntimeVersion();
 		if (ver <= SKSE::RUNTIME_1_5_39) {
-			_FATALERROR("Unsupported runtime version %s!", ver.GetString().c_str());
+			_FATALERROR("Unsupported runtime version %s!\n", ver.GetString().c_str());
 			return false;
 		}
 
@@ -60,9 +66,14 @@ extern "C"
 		}
 		
 		if (Settings::LoadSettings()) {
-			_MESSAGE("Settings loaded successully");
+			_MESSAGE("Settings loaded successfully");
 		} else {
 			_FATALERROR("Failed to load settings\n");
+			return false;
+		}
+
+		if (!SKSE::AllocTrampoline(1 << 6)) {
+			_FATALERROR("Failed to allocate trampoline");
 			return false;
 		}
 		
@@ -71,11 +82,6 @@ extern "C"
 			_MESSAGE("Messaging interface registration successful");
 		} else {
 			_FATALERROR("Messaging interface registration failed!\n");
-			return false;
-		}
-
-		if (!SKSE::AllocTrampoline(1 << 5)) {
-			_FATALERROR("Failed to allocate trampoline");
 			return false;
 		}
 		

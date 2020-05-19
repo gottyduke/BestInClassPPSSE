@@ -20,8 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="!QuickUpdate.ps1" />
-    <None Include="LICENSE" />
     <None Include="BestInClassPPSSE.json" />
+    <None Include="LICENSE" />
     <None Include="exports.def" />
   </ItemGroup>
   <ItemGroup>
@@ -33,18 +33,18 @@
     <ResourceCompile Include="version.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Events.cpp" />
+    <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\Hooks.cpp" />
-    <ClCompile Include="src\Forms.cpp" />
     <ClCompile Include="src\ItemListVisitor.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Events.h" />
     <ClInclude Include="include\Hooks.h" />
-    <ClInclude Include="include\Forms.h" />
     <ClInclude Include="include\ItemListVisitor.h" />
-    <ClInclude Include="include\Settings.h" />
     <ClInclude Include="include\version.h" />
+    <ClInclude Include="include\Settings.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -131,6 +131,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <ForcedIncludeFiles>ForceInclude.h;SKSE/Logger.h</ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4020;4996;4244</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -179,6 +180,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <ForcedIncludeFiles>ForceInclude.h;SKSE/Logger.h</ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4020;4996;4244</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

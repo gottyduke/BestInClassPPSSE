@@ -11,3 +11,8 @@ bool Settings::LoadSettings(const bool a_dumpParse)
 
 	return success;
 }
+
+
+decltype(Settings::compareAmmoBy) Settings::compareAmmoBy("compareAmmoBy", "damage");
+decltype(Settings::compareArmorBy) Settings::compareArmorBy("compareArmorBy", "rating");
+decltype(Settings::compareWeaponBy) Settings::compareWeaponBy("compareWeaponBy", "damage");
