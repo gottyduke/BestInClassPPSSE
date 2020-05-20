@@ -12,7 +12,7 @@ namespace Events
 	{
 	public:
 		static RE::BSFixedString CurrentMenu;
-		
+
 		using EventResult = RE::BSEventNotifyControl;
 
 		EventResult ProcessEvent(const RE::MenuOpenCloseEvent* a_event, [[maybe_unused]] RE::BSTEventSource<RE::MenuOpenCloseEvent>* a_eventSource) override;

@@ -12,13 +12,14 @@ namespace Events
 		if (!a_event) {
 			return EventResult::kContinue;
 		}
-		
+
 		auto* const intfcStr = RE::InterfaceStrings::GetSingleton();
-		
+
 		if (a_event->menuName == intfcStr->barterMenu ||
 			a_event->menuName == intfcStr->containerMenu ||
 			a_event->menuName == intfcStr->inventoryMenu) {
 			// skip first execution to avoid re-iterating the list
+			// also refer to https://github.com/Dakraid/BestInClassPP/issues/3
 			if (a_event->opening) {
 				CurrentMenu = a_event->menuName;
 
@@ -27,7 +28,7 @@ namespace Events
 				CurrentMenu = nullptr;
 			}
 		}
-		
+
 		return EventResult::kContinue;
 	}
 
