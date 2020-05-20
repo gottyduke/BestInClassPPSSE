@@ -1,13 +1,13 @@
 #pragma once
 
-#include "DKUtil/SDM.h"
+#include "DKUtil/Template.h"
 #include "RE/Skyrim.h"
 
 
 namespace Events
 {
 	class MenuOpenHandler final :
-		public DKUtil::SDM<MenuOpenHandler>,
+		public DKUtil::Template::SDM<MenuOpenHandler>,
 		public RE::BSTEventSink<RE::MenuOpenCloseEvent>
 	{
 	public:

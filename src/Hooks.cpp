@@ -4,6 +4,7 @@
 #include "ItemListVisitor.h"
 
 #include "DKUtil/Hook.h"
+#include "SKSE/RegistrationSet.h"
 
 
 namespace
